@@ -17,7 +17,7 @@ class FuzerProvider(TorrentProvider):  # pylint: disable=too-many-instance-attri
     def __init__(self):
 
         # Provider Init
-        TorrentProvider.__init__(self, "FuzerProvider")
+        TorrentProvider.__init__(self, "Fuzer")
 
         # Credentials
         self.username = None
@@ -50,8 +50,8 @@ class FuzerProvider(TorrentProvider):  # pylint: disable=too-many-instance-attri
             "cookieuser": 1,
             "s": '',
             "securitytoken": 'guest',
-            "vb_login_md5password": hashlib.md5(self.password.encode("utf-8").hexdigest()),
-            "vb_login_md5password_utf": hashlib.md5(self.password.encode("utf-8").hexdigest()),
+            "vb_login_md5password": hashlib.md5(self.password.encode("utf-8")).hexdigest(),
+            "vb_login_md5password_utf": hashlib.md5(self.password.encode("utf-8")).hexdigest(),
         }
 
         response = self.get_url(self.urls["login"] + "?do=login", post_data=login_params, returns="text")
@@ -64,3 +64,12 @@ class FuzerProvider(TorrentProvider):  # pylint: disable=too-many-instance-attri
             return False
 
         return True
+
+    def search(self, search_params, age=0, ep_obj=None):
+        results = []
+        if not self.login():
+            return results
+        raise NotImplemented
+
+
+provider = FuzerProvider()
